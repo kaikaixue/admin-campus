@@ -15,5 +15,11 @@ public class PlaceVo {
     private String name;
     private String detail;
     private String[] picture;
+    private String longitude;
+    private String latitude;
     private LocalDateTime updateTime;
+
+    public PlaceVo() {
+
+    }
 }

@@ -14,5 +14,7 @@ public class PlaceDo {
     private String name;
     private String detail;
     private String picture;
+    private String longitude;
+    private String latitude;
     private LocalDateTime update_time;
 }
