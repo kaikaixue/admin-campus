@@ -11,6 +11,4 @@ public interface UserService {
      * @return
      */
     List<UserVo> queryUser();
-
-
 }

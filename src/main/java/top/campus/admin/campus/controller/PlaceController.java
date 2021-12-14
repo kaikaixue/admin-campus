@@ -5,7 +5,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.campus.admin.campus.domain.dto.PlaceDTO;
-import top.campus.admin.campus.result.R;
+import top.campus.admin.campus.domain.dto.QueryPlaceDTO;
+import top.campus.admin.campus.result.RestResult;
+import top.campus.admin.campus.result.RestResultBuilder;
 import top.campus.admin.campus.service.PlaceService;
 
 import javax.annotation.Resource;
@@ -21,8 +23,8 @@ public class PlaceController {
      * @return
      */
     @PostMapping("/queryPlace")
-    public R queryPlace() {
-        return R.ok().data("item", placeService.queryPlace());
+    public RestResult queryPlace(@RequestBody QueryPlaceDTO queryPlaceDTO) {
+        return new RestResultBuilder<>().success(placeService.queryPlace(queryPlaceDTO));
     }
 
     /**
@@ -31,7 +33,22 @@ public class PlaceController {
      * @return
      */
     @PostMapping("/update")
-    public R updatePlace(@RequestBody PlaceDTO placeDTO) {
-        return R.ok().data("code", placeService.updatePlace(placeDTO));
+    public RestResult updatePlace(@RequestBody PlaceDTO placeDTO) {
+        return new RestResultBuilder<>().success(placeService.updatePlace(placeDTO));
+    }
+
+    /**
+     * 添加地点
+     * @param placeDTO
+     * @return
+     */
+    @PostMapping("/add")
+    public RestResult addPlace(@RequestBody PlaceDTO placeDTO) {
+        return new RestResultBuilder<>().success(placeService.addPlace(placeDTO));
+    }
+
+    @PostMapping("/delete")
+    public RestResult deletePlace(@RequestBody PlaceDTO placeDTO) {
+        return new RestResultBuilder<>().success(placeService.deletePlace(placeDTO));
     }
 }

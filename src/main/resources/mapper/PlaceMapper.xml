@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="top.campus.admin.campus.mapper.PlaceMapper">
-    <select id="queryPlace" resultType="top.campus.admin.campus.domain.Do.PlaceDo">
-        select pk_id,name,detail,picture,update_time from t_place where is_delete = 0
+    <select id="queryPlace" resultType="top.campus.admin.campus.domain.Do.PlaceDo" parameterType="object">
+        select pk_id,name,detail,picture,longitude,latitude,update_time from t_place where is_delete = 0 and name like concat('%',#{name},'%') limit #{index},#{length}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer" parameterType="object">
+        select count(pk_id) from t_place where is_delete = 0
     </select>
 
     <update id="updatePlace" parameterType="top.campus.admin.campus.domain.dto.PlaceDTO">
         update t_place set name = #{name}, detail= #{detail}, picture = #{picture} where pk_id = #{id}
+    </update>
+
+    <insert id="addPlace" parameterType="object">
+        insert into t_place (name,detail,picture,latitude,longitude,is_delete,create_time,update_time) values (#{name},#{detail},#{picture},#{latitude},#{longitude},#{isDelete},#{createTime},#{updateTime})
+    </insert>
+
+    <update id="deletePlace" parameterType="object">
+        update t_place set is_delete=1 where pk_id=#{pkId}
     </update>
 </mapper>
